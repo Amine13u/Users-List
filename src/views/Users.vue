@@ -26,7 +26,9 @@
           </v-list-item>
         </v-list>
         <v-divider></v-divider>
-        <v-btn width="50%"><v-icon>mdi-update</v-icon>Update</v-btn>
+        <v-btn width="50%" @click="toggleDialog(true, user)"
+          ><v-icon>mdi-update</v-icon>Update</v-btn
+        >
         <v-btn @click="deleteUser(user.id)" width="50%"
           ><v-icon>mdi-delete</v-icon>Delete</v-btn
         >
@@ -38,40 +40,22 @@
 <script>
 export default {
   name: "Home",
+
   data: () => ({
-    users: [
-      {
-        id: 1,
-        firstName: "Amine",
-        lastName: "Mannai",
-        email: "amine@gmail.com",
-      },
-      {
-        id: 2,
-        firstName: "Karim",
-        lastName: "Gharbi",
-        email: "karim@gmail.com",
-      },
-      {
-        id: 3,
-        firstName: "John",
-        lastName: "Doe",
-        email: "john@gmail.com",
-      },
-    ],
+    users: [],
+    dialog: false,
   }),
+  mounted() {
+    this.users = this.$store.getters.getUsers;
+  },
   methods: {
-    addUser() {
-      let newUser = {
-        id: Date.now(),
-        firstName: this.newUserHolder.firstName,
-        lastName: this.newUserHolder.lastName,
-        email: this.newUserHolder.email,
-      };
-      this.users.push(newUser);
-    },
     deleteUser(id) {
-      this.users = this.users.filter((user) => user.id !== id);
+      this.$store.commit("deleteUser", id);
+      this.users = this.$store.getters.getUsers;
+    },
+    toggleDialog(status, user) {
+      this.$store.commit("toggleDialog", { status, user });
+      console.log(this.dialog);
     },
   },
 };
