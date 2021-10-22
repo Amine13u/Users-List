@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    search: "",
     dialog: false,
     editedUser: {},
     users: [
@@ -49,6 +50,9 @@ export default new Vuex.Store({
       state.editedUser = user;
       state.dialog = status;
     },
+    searchUser(state, text) {
+      state.search = text;
+    },
   },
   actions: {},
   modules: {},
@@ -56,5 +60,6 @@ export default new Vuex.Store({
     getUsers: (state) => state.users,
     getDialog: (state) => state.dialog,
     getEditedUser: (state) => state.editedUser,
+    getSearch: (state) => state.search,
   },
 });

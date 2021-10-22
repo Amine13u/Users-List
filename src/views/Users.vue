@@ -4,7 +4,7 @@
       class="mx-auto  ma-6"
       width="256"
       tile
-      v-for="user in users"
+      v-for="user in filterdUsers"
       :key="user.id"
     >
       <v-navigation-drawer permanent>
@@ -38,15 +38,18 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from "vuex";
 export default {
   name: "Home",
 
   data: () => ({
     users: [],
     dialog: false,
+    search: "",
   }),
   mounted() {
     this.users = this.$store.getters.getUsers;
+    this.search = this.$store.getters.getSearch;
   },
   methods: {
     deleteUser(id) {
@@ -55,7 +58,16 @@ export default {
     },
     toggleDialog(status, user) {
       this.$store.commit("toggleDialog", { status, user });
-      console.log(this.dialog);
+    },
+  },
+  computed: {
+    filterdUsers() {
+      return this.users.filter(
+        (user) =>
+          user.firstName.toLowerCase().includes(this.search.toLowerCase()) ||
+          user.lastName.toLowerCase().includes(this.search.toLowerCase()) ||
+          user.email.toLowerCase().includes(this.search.toLowerCase())
+      );
     },
   },
 };

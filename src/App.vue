@@ -43,8 +43,16 @@
       <v-app-bar-title>Users List App</v-app-bar-title>
 
       <v-spacer></v-spacer>
+      <v-text-field
+        label="Search User"
+        background-color="#454443"
+        solo
+        v-model="search"
+      ></v-text-field>
+      <v-btn icon @click="searchUser(search)">
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
 
-      <v-btn icon> <v-icon>mdi-magnify</v-icon> </v-btn>
       <Form class="mr-0" />
     </v-app-bar>
 
@@ -56,16 +64,26 @@
 
 <script>
 import Form from "./components/Form";
+import { mapGetters, mapState } from "vuex";
 export default {
   components: {
     Form,
   },
   data: () => ({
+    // search: "",
     drawer: null,
     items: [
       { title: "Users", icon: "mdi-account-multiple", to: "/" },
       { title: "About", icon: "mdi-help-box", to: "/about" },
     ],
+  }),
+  methods: {
+    searchUser(text) {
+      this.$store.commit("searchUser", this.search);
+    },
+  },
+  computed: mapState({
+    search: (state) => state.search,
   }),
 };
 </script>
