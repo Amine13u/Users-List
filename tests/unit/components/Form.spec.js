@@ -1,13 +1,5 @@
-import { shallowMount, createLocalVue } from "@vue/test-utils";
+import { shallowMount } from "@vue/test-utils";
 import Form from "@/components/Form.vue";
-// import Vue from "vue";
-import Vuex from "vuex";
-// import Vuetify from "vuetify";
-
-const localVue = createLocalVue();
-//localVue.use(Vuex);
-
-// const store = new Vuex.Store({});
 
 describe("Form", () => {
   test("snapshot", () => {
@@ -38,7 +30,6 @@ describe("Form", () => {
         ],
       },
     };
-
     const wrapper = shallowMount(Form, {
       mocks: { $store },
     });

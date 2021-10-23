@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     search: "",
     dialog: false,
-    editedUser: {},
+    editedUser: null,
     users: [
       {
         id: 1,
@@ -31,12 +31,14 @@ export default new Vuex.Store({
   },
   mutations: {
     updateUser(state, payload) {
+      console.log(payload);
       state.users = state.users.map((user) =>
         user.id === payload.id ? payload : user
       );
       state.editedUser = null;
     },
     addUser(state, payload) {
+      console.log(payload);
       let newUser = {
         id: Date.now(),
         ...payload,
@@ -54,8 +56,6 @@ export default new Vuex.Store({
       state.search = text;
     },
   },
-  actions: {},
-  modules: {},
   getters: {
     getUsers: (state) => state.users,
     getDialog: (state) => state.dialog,

@@ -60,13 +60,11 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapState } from "vuex";
 export default {
   data: () => ({
-    getEditedUser: null,
-    // form: { firstName: "", lastName: "", email: "" },
+    form: { firstName: "", lastName: "", email: "" },
   }),
-
   methods: {
     submitForm() {
       if (Object.values(this.form).includes(""))
@@ -80,14 +78,18 @@ export default {
       this.$store.commit("toggleDialog", { status });
     },
   },
+  watch: {
+    editForm(next) {
+      // if next value is truthy
+      // we will initialize the form with the user data
+      if (next) {
+        this.form = { ...next };
+      }
+    },
+  },
   computed: mapState({
     dialog: (state) => state.dialog,
-    form: (state) =>
-      state.editedUser || {
-        firstName: "",
-        lastName: "",
-        email: "",
-      },
+    editForm: (state) => state.editedUser,
   }),
 };
 </script>

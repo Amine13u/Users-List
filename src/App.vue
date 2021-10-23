@@ -64,13 +64,12 @@
 
 <script>
 import Form from "./components/Form";
-import { mapGetters, mapState } from "vuex";
 export default {
   components: {
     Form,
   },
   data: () => ({
-    // search: "",
+    search: "",
     drawer: null,
     items: [
       { title: "Users", icon: "mdi-account-multiple", to: "/" },
@@ -78,12 +77,9 @@ export default {
     ],
   }),
   methods: {
-    searchUser(text) {
+    searchUser() {
       this.$store.commit("searchUser", this.search);
     },
   },
-  computed: mapState({
-    search: (state) => state.search,
-  }),
 };
 </script>
